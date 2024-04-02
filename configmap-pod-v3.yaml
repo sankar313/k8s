@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: busybox-cm-v3
+  name: busybox-cm-v3
+spec:
+  containers:
+  - args:
+    - sleep
+    - "3600"
+    image: quay.io/quay/busybox:latest
+    name: busybox-cm-v3
+    volumeMounts:
+      - name: config
+        mountPath: "/etc/app-config"
+        readOnly: true
+  volumes:
+    - name: config
+      configMap:
+        name: my-first-cm
+        items:
+        - key: debug_level
+          path: debug
+        - key: color
+          path: color
+        - key: env
+          path: env  
+
+
